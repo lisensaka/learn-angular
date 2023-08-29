@@ -6,7 +6,9 @@ import { Component } from '@angular/core';
   // styleUrls: ['./success-alert.component.css']
   styles: [`
   p {
-  color: green;
+    border: 1px solid green;
+    background-color: green;
+    padding: 20px;
 }
   `]
 })

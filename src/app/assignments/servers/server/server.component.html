@@ -1,0 +1,31 @@
+<h4>Hello from Server Component</h4>
+<p>Server Name</p>
+<input type="text"
+class= "form-control"
+[(ngModel)]="serverName">
+
+
+
+<button class="btn btn-primary"
+(click)="onClickedButton($event)">
+Add Server
+</button>
+
+<p
+[ngStyle] ="{ backgroundColor: getServerStatus() }"
+[ngClass]="{ online : getWhiteContentColor() }"
+*ngFor="let item of serversList"
+>
+<!-- *ngIf="(isClickedButton)" -->
+
+{{ item }}</p>
+
+<!-- <p
+[ngStyle] ="{ backgroundColor: getServerStatus() }"
+[ngClass]="{ online : getWhiteContentColor() }"
+>The Serber with name: {{ serverName }} is with status {{ serverStatus }}</p> -->
+
+<!-- reading and getting the value from input field with the help of $event param -->
+<!-- (input)="onSaveServerName($event)" -->
+
+
