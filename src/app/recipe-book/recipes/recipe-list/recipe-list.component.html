@@ -1,1 +1,15 @@
-<p>recipe-list works!</p>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="btn btn-success">New Recipe</div>
+  </div>
+</div>
+<br />
+<div class="row">
+  <div class="col-xs-12">
+    <app-recipe-item
+      *ngFor="let itemOnRecipeList of recipeList"
+      [recipeItem]="itemOnRecipeList"
+      (itemClicked)="itemClickedOnItemTemplate(itemOnRecipeList)"
+    ></app-recipe-item>
+  </div>
+</div>

@@ -1,1 +1,17 @@
-<p>shoping-list works!</p>
+<div class="row">
+  <div class="col-xs-10">
+    <app-shoping-list-edit
+      (itemCreated)="addingNewValueToIngredientList($event)"
+    ></app-shoping-list-edit>
+    <hr />
+    <ul class="list-group">
+      <a
+        class="list-group-item"
+        style="cursor: pointer"
+        *ngFor="let ingredient of ingredients"
+      >
+        {{ ingredient.name }} ( {{ ingredient.amount }})
+      </a>
+    </ul>
+  </div>
+</div>

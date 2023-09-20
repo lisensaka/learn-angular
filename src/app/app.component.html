@@ -1,12 +1,10 @@
-
+<app-header (selectedHeader)="onNavigationSelectRecipe($event)"></app-header>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h2>Hello World from {{ title }}</h2>
-      <p>Hello There</p>
-
-      <app-header></app-header>
+      <app-recipes *ngIf="selectedHeader === 'recipe'"> </app-recipes>
+      <app-shoping-list *ngIf="selectedHeader === 'shopping-list'">
+      </app-shoping-list>
     </div>
   </div>
 </div>
-
