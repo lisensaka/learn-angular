@@ -16,6 +16,10 @@ export class ShopingListComponent implements OnInit {
     this.ingredients = this.shoppingListService.shoppingList;
   }
 
+  onEditIngredient(ingredientIndex: number) {
+    // console.log(ingredientIndex);
+    this.shoppingListService.startedEditing.next(ingredientIndex);
+  }
   // addingNewValueToIngredientList(newIngredient: Ingredient) {
   //   this.ingredients.push(newIngredient);
   // }

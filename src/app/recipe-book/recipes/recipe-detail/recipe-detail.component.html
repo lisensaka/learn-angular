@@ -16,12 +16,18 @@
       </button>
       <ul class="dropdown-menu">
         <li>
-          <a href="#" (click)="addToshoppingList(recipeClicked)"
+          <a style="cursor: pointer" (click)="addToshoppingList(recipeClicked)"
             >To Shoping List</a
           >
         </li>
-        <li><a href="#">Edit Recipe</a></li>
-        <li><a href="#">Delete Recipe</a></li>
+        <li>
+          <a style="cursor: pointer" (click)="onEditRecipe()">Edit Recipe</a>
+        </li>
+        <li>
+          <a style="cursor: pointer" (click)="onDeleteRecipe()"
+            >Delete Recipe</a
+          >
+        </li>
       </ul>
     </div>
     <h4>{{ recipeClicked.name }}</h4>

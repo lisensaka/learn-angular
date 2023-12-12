@@ -35,4 +35,20 @@ export class RecipeService {
   addNewIngredients(ingredients: Ingredient[]) {
     this.shoppingListService.addNewItems(ingredients);
   }
+
+  getRecipeById(index: number) {
+    return this.recipes[index];
+  }
+
+  addRecipe(newRecipe: Recipe) {
+    this.recipes.push(newRecipe);
+  }
+
+  updateRecipe(index: number, newRecipe: Recipe) {
+    this.recipes[index] = newRecipe;
+  }
+
+  deleteRecipe(index: number) {
+    this.recipes.splice(index, 1);
+  }
 }

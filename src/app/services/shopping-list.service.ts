@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model';
+import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ShoppingListService {
+  startedEditing = new Subject<number>();
+
   shoppingList = [
     new Ingredient('Pasta', 1),
     new Ingredient('Pesto Sauce', 1),
@@ -21,5 +24,19 @@ export class ShoppingListService {
 
   removeItem(id: number) {
     this.shoppingList.slice(id);
+  }
+
+  removeItemByIndex(index: number) {
+    this.shoppingList.splice(index, 1);
+  }
+
+  getIngredientByIndex(index: number): Ingredient {
+    return this.shoppingList[index];
+  }
+
+  updateIngredientByIndex(ingredientIndex: number, newIngredient: Ingredient) {
+    const updatedIngredient = this.getIngredientByIndex(ingredientIndex);
+    updatedIngredient.name = newIngredient.name;
+    updatedIngredient.amount = newIngredient.amount;
   }
 }

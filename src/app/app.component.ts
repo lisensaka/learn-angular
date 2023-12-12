@@ -7,21 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'learn-angular';
-  selectedHeader: string = 'recipe';
-  recipeFeatureSelectedShoppingList: string = '';
-  test: string = '';
 
-  onNavigationSelectRecipe(navigationValue: string) {
-    // this.recipeFeatureSelectedShoppingList = '';
-    this.selectedHeader = navigationValue;
-  }
-
-  onNavigationSelectShoppingList(navigationValue: string) {
-    // this.recipeFeatureSelectedRecipe = '';
-    // this.recipeFeatureSelectedShoppingList = navigationValue;
-  }
-
-  ngOnInit(): void {
-    // this.recipeFeatureSelectedRecipe = 'receipe';
-  }
+  ngOnInit(): void {}
 }

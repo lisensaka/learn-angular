@@ -8,12 +8,4 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class HeaderComponent {
   collapsed = true;
   @Output() selectedHeader = new EventEmitter<string>();
-
-  onSelectRecipe(value: string) {
-    this.selectedHeader.emit(value);
-  }
-
-  onSelectShoppingList(value) {
-    this.selectedHeader.emit(value);
-  }
 }
