@@ -2,46 +2,76 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Recipe } from '../recipe-book/recipes/recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from './shopping-list.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from '../auth/auth.service';
+import { exhaustMap, map, take, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class RecipeService {
   itemClicked = new EventEmitter<Recipe>();
+  recipeUrl = 'http://localhost:8080/recipe';
 
-  constructor(private shoppingListService: ShoppingListService) {}
+  constructor(
+    private shoppingListService: ShoppingListService,
+    private http: HttpClient,
+    private authService: AuthService
+  ) {}
 
-  recipes = [
-    new Recipe(
-      'Chorico Mozzarella',
-      'chorizo-mozarella-gnocchi-bake-cropped',
-      'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=556,505',
-      [
-        new Ingredient('Mozzarella', 2),
-        new Ingredient('Chorizo', 1),
-        new Ingredient('Parmigiano', 2),
-      ]
-    ),
-    new Recipe(
-      'Prawn Fried Rice',
-      'Prawn fried rice with schrimbs',
-      'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/prawn_fried_rice-2481925.jpg?quality=90&resize=440,400',
-      [
-        new Ingredient('Rice', 1),
-        new Ingredient('Prawn', 1),
-        new Ingredient('Schrimbs', 25),
-      ]
-    ),
-  ];
+  recipes: Recipe[] = [];
+
+  getAllRecipes() {
+    // let tkn = '';
+    // this.authService.token.pipe(take(1)).subscribe((respToken) => {
+    //   tkn = respToken;
+    // });
+
+    // let header = new HttpHeaders().set('Authorization', `Bearer ${tkn}`);
+    // Authorization: `Bearer ${token}`;
+    // hdrs = hdrs.append('Authorization', `Bearer ${tkn}`);
+
+    return this.http.get<Recipe[]>(this.recipeUrl + '/all').pipe(
+      tap((respo: Recipe[]) => {
+        this.recipes = respo;
+      })
+    );
+    // return this.authService.token.pipe(
+    //   take(1),
+    //   exhaustMap((token) => {
+    //     debugger;
+    //     console.log(token);
+
+    //     // let headersToken = new HttpHeaders();
+    //     // debugger;
+    //     // headersToken.set('Authorization', 'Bearer ' + token.value);
+    //     const bearerToken = 'Bearer ' + token;
+    //     return this.http.get<Recipe[]>(this.recipeUrl + '/all', {
+    //       headers: new HttpHeaders().set('Authorization', bearerToken),
+    //     });
+    //   })
+    //   map((recipes) => {
+    //     return recipes.map((recipe) => {
+    //       return {
+    //         ...recipes,
+    //         ingredients: recipe.ingredients ? recipe.ingredients : [],
+    //       };
+    //     });
+    //   })
+    // );
+    // );
+  }
 
   addNewIngredients(ingredients: Ingredient[]) {
     this.shoppingListService.addNewItems(ingredients);
   }
 
   getRecipeById(index: number) {
-    return this.recipes[index];
+    return this.http.get<Recipe>(this.recipeUrl + '/by-id/' + index);
   }
 
   addRecipe(newRecipe: Recipe) {
-    this.recipes.push(newRecipe);
+    this.http.post<Recipe>(this.recipeUrl, newRecipe).subscribe((recipe) => {
+      this.recipes.push(recipe);
+    });
   }
 
   updateRecipe(index: number, newRecipe: Recipe) {
@@ -49,6 +79,6 @@ export class RecipeService {
   }
 
   deleteRecipe(index: number) {
-    this.recipes.splice(index, 1);
+    this.http.delete<string>(this.recipeUrl + '/' + index).subscribe();
   }
 }
